@@ -542,7 +542,7 @@ return {
 			Frame.Size = UDim2.fromOffset(0,0)
 			task.wait(0.5)
 
-			local s = TweenService:Create(Frame, TweenInfo.new(0.625, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 544, 0, 400)})
+			local s = TweenService:Create(Frame, TweenInfo.new(0.625, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {Size = data.Size})
 			s:Play()
 
 			util2.blur_inc(Frame)
