@@ -52,9 +52,9 @@ return {
 			local ui = {}
 			task.wait(1.5)
 
-			local d = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+			local d = Instance.new("ScreenGui", gethui())
 			d.Name = "d"
-			d.ResetOnSpawn = true
+			d.ResetOnSpawn = false
 			local Frame = Instance.new("Frame", d)
 			Frame.AnchorPoint = Vector2.new(0.5, 0.5)
 			Frame.BackgroundColor3 = Color3.new(0.1098039299249649, 0.062745101749897, 0.1725490242242813)
