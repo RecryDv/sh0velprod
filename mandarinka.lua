@@ -37,7 +37,7 @@ end
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/RecryDv/sh0velprod/refs/heads/main/UIlibrary.luau"))()
 local ui = lib.CreateWindow(1337, {
 	Title = "Bubble gum simulator infinity v0.337",
-	Auth = "by sh0vel",
+	Author = "by sh0vel",
 	Size = UDim2.fromOffset(540, 365)
 
 })
