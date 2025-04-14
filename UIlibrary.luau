@@ -1,3 +1,5 @@
+-- FIXED 14/04/25
+
 local TweenService = game:GetService("TweenService")
 
 
@@ -53,10 +55,13 @@ return {
 			}
 			local ui = {}
 			task.wait(1.5)
-			
 			local test2 = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
 			test2.Name = "test2"
 			test2.ResetOnSpawn = false
+			
+			if game:GetService("RunService"):IsStudio() == false then
+				test2.Parent = gethui()
+			end
 			
 			local Frame = Instance.new("Frame", test2)
 			Frame.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -66,6 +71,8 @@ return {
 			Frame.BorderSizePixel = 0
 			Frame.Position = UDim2.new(0.5,0,0.5,0)
 			Frame.Size = UDim2.new(0,544,0,400)
+			
+			local detector = Instance.new("UIDragDetector", Frame)
 
 			local TitleLabel = Instance.new("TextLabel", Frame)
 			TitleLabel.Name = "TitleLabel"
@@ -76,7 +83,7 @@ return {
 			TitleLabel.Position = UDim2.new(0,0,0.014999999664723873,0)
 			TitleLabel.Size = UDim2.new(1,0,0.054999999701976776,0)
 			TitleLabel.Font = Enum.Font.FredokaOne
-			TitleLabel.Text = "title"
+			TitleLabel.Text = data.Title
 			TitleLabel.TextColor3 = Color3.new(1, 1, 1)
 			TitleLabel.TextScaled = true
 			TitleLabel.TextSize = 14
@@ -162,7 +169,7 @@ return {
 			AuthorLabel.Position = UDim2.new(0,0,0.06499999761581421,0)
 			AuthorLabel.Size = UDim2.new(1,0,0.05999999865889549,0)
 			AuthorLabel.Font = Enum.Font.FredokaOne
-			AuthorLabel.Text = "by author"
+			AuthorLabel.Text = data.Author
 			AuthorLabel.TextColor3 = Color3.new(1, 1, 1)
 			AuthorLabel.TextScaled = true
 			AuthorLabel.TextSize = 14
