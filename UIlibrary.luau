@@ -1,24 +1,26 @@
 local TweenService = game:GetService("TweenService")
-local blur = loadstring(game:HttpGet("https://raw.githubusercontent.com/RecryDv/shovelprod/refs/heads/main/blur.lua"))()
-
 
 
 local util2 = {
 	blur_inc = function(fr)
-		if blur ~= nil then
-			local BlurDoF = Instance.new("DepthOfFieldEffect")
-			BlurDoF.Enabled = true
-			BlurDoF.FarIntensity = 0
-			BlurDoF.FocusDistance = 51.6
-			BlurDoF.InFocusRadius = 50
-			BlurDoF.NearIntensity = 1
-			BlurDoF.Name = "UIBlurDoF"
-			BlurDoF.Parent = game.Lighting
-			
-			blur:BindFrame(fr, {
-				Transparency = 0.98;
-				BrickColor = BrickColor.new(Color3.new(1,1,1));
-			})
+		if game:GetService("RunService"):IsClient() then
+			local blur = loadstring(game:HttpGet("https://raw.githubusercontent.com/RecryDv/shovelprod/refs/heads/main/blur.lua"))()
+
+			if blur ~= nil then
+				local BlurDoF = Instance.new("DepthOfFieldEffect")
+				BlurDoF.Enabled = true
+				BlurDoF.FarIntensity = 0
+				BlurDoF.FocusDistance = 51.6
+				BlurDoF.InFocusRadius = 50
+				BlurDoF.NearIntensity = 1
+				BlurDoF.Name = "UIBlurDoF"
+				BlurDoF.Parent = game.Lighting
+
+				blur:BindFrame(fr, {
+					Transparency = 0.98;
+					BrickColor = BrickColor.new(Color3.new(1,1,1));
+				})
+			end
 		end
 	end,
 }
@@ -51,22 +53,19 @@ return {
 			}
 			local ui = {}
 			task.wait(1.5)
-
-			local d = Instance.new("ScreenGui", gethui())
-			d.Name = "d"
-			d.ResetOnSpawn = false
-			local Frame = Instance.new("Frame", d)
+			
+			local test2 = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+			test2.Name = "test2"
+			test2.ResetOnSpawn = false
+			
+			local Frame = Instance.new("Frame", test2)
 			Frame.AnchorPoint = Vector2.new(0.5, 0.5)
-			Frame.BackgroundColor3 = Color3.new(0.1098039299249649, 0.062745101749897, 0.1725490242242813)
-			Frame.BackgroundTransparency = 0.30000001192092896
+			Frame.BackgroundColor3 = Color3.new(0.10980392247438431, 0.062745101749897, 0.1725490242242813)
+			Frame.BackgroundTransparency = 1
 			Frame.BorderColor3 = Color3.new(0, 0, 0)
 			Frame.BorderSizePixel = 0
 			Frame.Position = UDim2.new(0.5,0,0.5,0)
 			Frame.Size = UDim2.new(0,544,0,400)
-
-			local drag = Instance.new("UIDragDetector")
-			drag.Parent = Frame
-			drag.CursorIcon = ""
 
 			local TitleLabel = Instance.new("TextLabel", Frame)
 			TitleLabel.Name = "TitleLabel"
@@ -77,7 +76,7 @@ return {
 			TitleLabel.Position = UDim2.new(0,0,0.014999999664723873,0)
 			TitleLabel.Size = UDim2.new(1,0,0.054999999701976776,0)
 			TitleLabel.Font = Enum.Font.FredokaOne
-			TitleLabel.Text = data.Title
+			TitleLabel.Text = "title"
 			TitleLabel.TextColor3 = Color3.new(1, 1, 1)
 			TitleLabel.TextScaled = true
 			TitleLabel.TextSize = 14
@@ -90,9 +89,6 @@ return {
 			UIPadding.PaddingRight = UDim.new(0.05000000074505806, 0)
 			UIPadding.PaddingTop = UDim.new(0.019999999552965164, 0)
 
-			local UICorner = Instance.new("UICorner", Frame)
-			UICorner.CornerRadius = UDim.new(0.02500000037252903, 0)
-
 			local shadow = Instance.new("ImageLabel", Frame)
 			shadow.Name = "shadow"
 			shadow.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -102,7 +98,7 @@ return {
 			shadow.BorderSizePixel = 0
 			shadow.Position = UDim2.new(0.5,0,0.5,0)
 			shadow.Size = UDim2.new(1.0156251192092896,35,1.00124990940094,35)
-			shadow.ZIndex = -10
+			shadow.ZIndex = -1000
 			shadow.Image = "rbxassetid://14001321443"
 			shadow.ImageColor3 = Color3.new(0.32156863808631897, 0.18431372940540314, 0.38823533058166504)
 			shadow.ImageTransparency = 0.6000000238418579
@@ -121,8 +117,6 @@ return {
 			Tabs.CanvasSize = UDim2.new(0,0,1.25,0)
 			Tabs.ScrollBarImageColor3 = Color3.new(0, 0, 0)
 			Tabs.ScrollBarImageTransparency = 1
-			Tabs.ZIndex = 45
-			Tabs.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
 			local UIListLayout = Instance.new("UIListLayout", Tabs)
 			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -132,6 +126,32 @@ return {
 			local UIPadding_0 = Instance.new("UIPadding", Tabs)
 			UIPadding_0.PaddingTop = UDim.new(0.029999999329447746, 0)
 
+			local MainTab = Instance.new("ScrollingFrame", Frame)
+			MainTab.Name = "MainTab"
+			MainTab.Active = true
+			MainTab.BackgroundColor3 = Color3.new(1, 1, 1)
+			MainTab.BackgroundTransparency = 1
+			MainTab.BorderColor3 = Color3.new(0, 0, 0)
+			MainTab.BorderSizePixel = 0
+			MainTab.Position = UDim2.new(0.375,0,0.11500000208616257,0)
+			MainTab.Size = UDim2.new(0.625,0,0.8849999904632568,0)
+			MainTab.CanvasSize = UDim2.new(0,0,1.25,0)
+			MainTab.ScrollBarImageColor3 = Color3.new(0, 0, 0)
+			MainTab.ScrollBarImageTransparency = 1
+
+			local UIListLayout_0 = Instance.new("UIListLayout", MainTab)
+			UIListLayout_0.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			UIListLayout_0.SortOrder = Enum.SortOrder.LayoutOrder
+			UIListLayout_0.Padding = UDim.new(0.014999999664723873, 0)
+
+			local UIPadding_1 = Instance.new("UIPadding", MainTab)
+			UIPadding_1.PaddingBottom = UDim.new(0.02500000037252903, 0)
+			UIPadding_1.PaddingLeft = UDim.new(0.02500000037252903, 0)
+			UIPadding_1.PaddingRight = UDim.new(0.02500000037252903, 0)
+			UIPadding_1.PaddingTop = UDim.new(0.02500000037252903, 0)
+
+			local UICorner = Instance.new("UICorner", MainTab)
+			UICorner.CornerRadius = UDim.new(0.029999999329447746, 0)
 
 			local AuthorLabel = Instance.new("TextLabel", Frame)
 			AuthorLabel.Name = "AuthorLabel"
@@ -142,7 +162,7 @@ return {
 			AuthorLabel.Position = UDim2.new(0,0,0.06499999761581421,0)
 			AuthorLabel.Size = UDim2.new(1,0,0.05999999865889549,0)
 			AuthorLabel.Font = Enum.Font.FredokaOne
-			AuthorLabel.Text = data.Auth
+			AuthorLabel.Text = "by author"
 			AuthorLabel.TextColor3 = Color3.new(1, 1, 1)
 			AuthorLabel.TextScaled = true
 			AuthorLabel.TextSize = 14
@@ -155,6 +175,22 @@ return {
 			UIPadding_2.PaddingLeft = UDim.new(0.05000000074505806, 0)
 			UIPadding_2.PaddingRight = UDim.new(0.05000000074505806, 0)
 			UIPadding_2.PaddingTop = UDim.new(0.05000000074505806, 0)
+
+			local MainFrame = Instance.new("Frame", Frame)
+			MainFrame.Name = "MainFrame"
+			MainFrame.BackgroundColor3 = Color3.new(0.10980392247438431, 0.062745101749897, 0.1725490242242813)
+			MainFrame.BackgroundTransparency = 0.6000000238418579
+			MainFrame.BorderColor3 = Color3.new(0, 0, 0)
+			MainFrame.BorderSizePixel = 0
+			MainFrame.Size = UDim2.new(1,0,1,0)
+			MainFrame.ZIndex = -999
+
+			local UICorner_0 = Instance.new("UICorner", MainFrame)
+			UICorner_0.CornerRadius = UDim.new(0.02500000037252903, 0)
+
+		
+
+
 
 
 			ui.tabs = 0
@@ -532,6 +568,214 @@ return {
 									Callback(Default)
 								end)
 							end,
+							
+							AddMultiTable = function(data)
+								local title = data.Title
+								local tasks = data.Options or {}
+								
+								local values = {}
+								
+								local TableValueFrame = Instance.new("Frame", Frame)
+								TableValueFrame.Name = "TableValueFrame"
+								TableValueFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+								TableValueFrame.BackgroundTransparency = 1
+								TableValueFrame.BorderColor3 = Color3.new(0, 0, 0)
+								TableValueFrame.BorderSizePixel = 0
+								TableValueFrame.Size = UDim2.new(1,0,1,0)
+
+								local CanvasGroup = Instance.new("CanvasGroup", TableValueFrame)
+								CanvasGroup.BackgroundColor3 = Color3.new(0, 0, 0)
+								CanvasGroup.BackgroundTransparency = 0.6000000238418579
+								CanvasGroup.BorderColor3 = Color3.new(0, 0, 0)
+								CanvasGroup.BorderSizePixel = 0
+								CanvasGroup.Size = UDim2.new(1,0,1,0)
+								CanvasGroup.Visible = true
+								CanvasGroup.ZIndex = 1000
+
+								local UICorner_1 = Instance.new("UICorner", CanvasGroup)
+								UICorner_1.CornerRadius = UDim.new(0.02500000037252903, 0)
+
+								local CanvasFrame = Instance.new("Frame", CanvasGroup)
+								CanvasFrame.Name = "CanvasFrame"
+								CanvasFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+								CanvasFrame.BackgroundColor3 = Color3.new(0.10980392247438431, 0.062745101749897, 0.1725490242242813)
+								CanvasFrame.BorderColor3 = Color3.new(0, 0, 0)
+								CanvasFrame.BorderSizePixel = 0
+								CanvasFrame.Position = UDim2.new(0.5,0,0.5,0)
+								CanvasFrame.Size = UDim2.new(0.6000000238418579,0,0.6000000238418579,0)
+								CanvasFrame.ZIndex = 998
+
+								local UICorner_2 = Instance.new("UICorner", CanvasFrame)
+								UICorner_2.CornerRadius = UDim.new(0.02500000037252903, 0)
+
+								local shadow_0 = Instance.new("ImageLabel", CanvasFrame)
+								shadow_0.Name = "shadow"
+								shadow_0.AnchorPoint = Vector2.new(0.5, 0.5)
+								shadow_0.BackgroundColor3 = Color3.new(1, 1, 1)
+								shadow_0.BackgroundTransparency = 1
+								shadow_0.BorderColor3 = Color3.new(0, 0, 0)
+								shadow_0.BorderSizePixel = 0
+								shadow_0.Position = UDim2.new(0.4908088743686676,0,0.49166664481163025,0)
+								shadow_0.Size = UDim2.new(0.9788603186607361,35,1.026249885559082,35)
+								shadow_0.ZIndex = 997
+								shadow_0.Image = "rbxassetid://14001321443"
+								shadow_0.ImageColor3 = Color3.new(0.6745098233222961, 0.38823533058166504, 0.8196079134941101)
+								shadow_0.ImageTransparency = 0.800000011920929
+								shadow_0.ScaleType = Enum.ScaleType.Slice
+								shadow_0.SliceCenter = Rect.new(50,50,150,50)
+
+								local ConfTitle = Instance.new("TextLabel", CanvasFrame)
+								ConfTitle.Name = "ConfTitle"
+								ConfTitle.BackgroundColor3 = Color3.new(1, 1, 1)
+								ConfTitle.BackgroundTransparency = 1
+								ConfTitle.BorderColor3 = Color3.new(0, 0, 0)
+								ConfTitle.BorderSizePixel = 0
+								ConfTitle.Position = UDim2.new(0,0,0.015000088140368462,0)
+								ConfTitle.Size = UDim2.new(1,0,0.1341666728258133,0)
+								ConfTitle.ZIndex = 1001
+								ConfTitle.Font = Enum.Font.FredokaOne
+								ConfTitle.Text = title
+								ConfTitle.TextColor3 = Color3.new(1, 1, 1)
+								ConfTitle.TextScaled = true
+								ConfTitle.TextSize = 14
+								ConfTitle.TextWrapped = true
+
+								local UIPadding_3 = Instance.new("UIPadding", ConfTitle)
+								UIPadding_3.PaddingBottom = UDim.new(0.019999999552965164, 0)
+								UIPadding_3.PaddingLeft = UDim.new(0.05000000074505806, 0)
+								UIPadding_3.PaddingRight = UDim.new(0.05000000074505806, 0)
+								UIPadding_3.PaddingTop = UDim.new(0.019999999552965164, 0)
+
+								local Tab = Instance.new("Frame", CanvasFrame)
+								Tab.Name = "Tab"
+								Tab.BackgroundColor3 = Color3.new(1, 1, 1)
+								Tab.BackgroundTransparency = 1
+								Tab.BorderColor3 = Color3.new(0, 0, 0)
+								Tab.BorderSizePixel = 0
+								Tab.Position = UDim2.new(0,0,0.1458333283662796,0)
+								Tab.Size = UDim2.new(1,0,0.8640000224113464,0)
+								Tab.ZIndex = 1001
+								
+								local uil = Instance.new("UIListLayout", Tab)
+								uil.Padding = UDim.new(0.025, 0)
+
+								local Save = Instance.new("TextButton", CanvasFrame)
+								Save.AnchorPoint = Vector2.new(0.5, 0.949999988079071)
+								Save.BackgroundColor3 = Color3.new(0.7411764860153198, 0.3803921937942505, 1)
+								Save.BorderColor3 = Color3.new(0, 0, 0)
+								Save.BorderSizePixel = 0
+								Save.Position = UDim2.new(0.5,0,0.949999988079071,0)
+								Save.Size = UDim2.new(0.5,0,0.10000000149011612,0)
+								Save.ZIndex = 1004
+								Save.Font = Enum.Font.FredokaOne
+								Save.Text = "Save"
+								Save.TextColor3 = Color3.new(1, 1, 1)
+								Save.TextScaled = true
+								Save.TextSize = 14
+								Save.TextWrapped = true
+
+								local UIPadding_6 = Instance.new("UIPadding", Save)
+								UIPadding_6.PaddingBottom = UDim.new(0.05000000074505806, 0)
+								UIPadding_6.PaddingLeft = UDim.new(0.05000000074505806, 0)
+								UIPadding_6.PaddingRight = UDim.new(0.05000000074505806, 0)
+								UIPadding_6.PaddingTop = UDim.new(0.05000000074505806, 0)
+
+								local UICorner_4 = Instance.new("UICorner", Save)
+								UICorner_4.CornerRadius = UDim.new(0.20000000298023224, 0)
+
+								local shadow_1 = Instance.new("ImageLabel", Save)
+								shadow_1.Name = "shadow"
+								shadow_1.AnchorPoint = Vector2.new(0.5, 0.5)
+								shadow_1.BackgroundColor3 = Color3.new(1, 1, 1)
+								shadow_1.BackgroundTransparency = 1
+								shadow_1.BorderColor3 = Color3.new(0, 0, 0)
+								shadow_1.BorderSizePixel = 0
+								shadow_1.Position = UDim2.new(0.4908088743686676,0,0.49166664481163025,0)
+								shadow_1.Size = UDim2.new(0.9788603186607361,10,1.0260000228881836,10)
+								shadow_1.ZIndex = 1003
+								shadow_1.Image = "rbxassetid://14001321443"
+								shadow_1.ImageColor3 = Color3.new(0.6745098233222961, 0.38823533058166504, 0.8196079134941101)
+								shadow_1.ImageTransparency = 0.800000011920929
+								shadow_1.ScaleType = Enum.ScaleType.Slice
+								shadow_1.SliceCenter = Rect.new(50,50,150,50)
+								
+								for _, task_c in pairs(tasks) do
+									local Example = Instance.new("Frame", Tab)
+									Example.Name = task_c.Title
+									Example.BackgroundColor3 = Color3.new(1, 1, 1)
+									Example.BackgroundTransparency = 1
+									Example.BorderColor3 = Color3.new(0, 0, 0)
+									Example.BorderSizePixel = 0
+									Example.Size = UDim2.new(1,0,0.20000000298023224,0)
+									Example.Visible = true
+									Example.ZIndex = 1002
+									Example:SetAttribute("IsTab", true)
+
+									local Desc = Instance.new("TextLabel", Example)
+									Desc.Name = "Desc"
+									Desc.BackgroundColor3 = Color3.new(1, 1, 1)
+									Desc.BackgroundTransparency = 1
+									Desc.BorderColor3 = Color3.new(0, 0, 0)
+									Desc.BorderSizePixel = 0
+									Desc.Position = UDim2.new(0,0,0.014999999664723873,0)
+									Desc.Size = UDim2.new(0.550000011920929,0,1,0)
+									Desc.ZIndex = 1003
+									Desc.Font = Enum.Font.FredokaOne
+									Desc.Text = task_c.Title
+									Desc.TextColor3 = Color3.new(1, 1, 1)
+									Desc.TextScaled = true
+									Desc.TextSize = 14
+									Desc.TextWrapped = true
+									Desc.TextXAlignment = Enum.TextXAlignment.Left
+
+									local UIPadding_4 = Instance.new("UIPadding", Desc)
+									UIPadding_4.PaddingBottom = UDim.new(0.10000000149011612, 0)
+									UIPadding_4.PaddingLeft = UDim.new(0.05000000074505806, 0)
+									UIPadding_4.PaddingRight = UDim.new(0.10000000149011612, 0)
+									UIPadding_4.PaddingTop = UDim.new(0.10000000149011612, 0)
+
+									local UITextSizeConstraint = Instance.new("UITextSizeConstraint", Desc)
+									UITextSizeConstraint.MinTextSize = 12
+
+									local Input = Instance.new("TextBox", Example)
+									Input.Name = "Input"
+									Input.AnchorPoint = Vector2.new(0.8999999761581421, 0.5)
+									Input.BackgroundColor3 = Color3.new(0.8235294818878174, 0.4117647409439087, 1)
+									Input.BorderColor3 = Color3.new(0, 0, 0)
+									Input.BorderSizePixel = 0
+									Input.Position = UDim2.new(0.8999999761581421,0,0.5,0)
+									Input.Size = UDim2.new(0.4000000059604645,0,0.8999999761581421,0)
+									Input.ZIndex = 1004
+									Input.Font = Enum.Font.FredokaOne
+									Input.TextColor3 = Color3.new(1, 1, 1)
+									Input.TextScaled = true
+									Input.Text = ""
+									Input.PlaceholderText = "Value"
+									Input.PlaceholderColor3 = Color3.fromRGB(191, 191, 191)
+									Input.TextSize = 14
+									Input.TextWrapped = true
+
+									local UICorner_3 = Instance.new("UICorner", Input)
+									UICorner_3.CornerRadius = UDim.new(0.20000000298023224, 0)
+
+									local UIPadding_5 = Instance.new("UIPadding", Input)
+									UIPadding_5.PaddingBottom = UDim.new(0.05000000074505806, 0)
+									UIPadding_5.PaddingLeft = UDim.new(0.05000000074505806, 0)
+									UIPadding_5.PaddingRight = UDim.new(0.05000000074505806, 0)
+									UIPadding_5.PaddingTop = UDim.new(0.05000000074505806, 0)
+									
+									Save.Activated:Connect(function()
+										task_c.Callback(Input.Text)
+										TableValueFrame:Destroy()
+									end)
+									
+								end
+								
+								
+
+								
+								
+							end,
 						}
 					end,
 				}
@@ -545,7 +789,9 @@ return {
 			local s = TweenService:Create(Frame, TweenInfo.new(0.625, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {Size = data.Size})
 			s:Play()
 
-			util2.blur_inc(Frame)
+			pcall(function()
+				util2.blur_inc(Frame)
+			end)
 
 			return ui
 		end
