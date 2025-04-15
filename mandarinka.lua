@@ -20,13 +20,11 @@ local function teleport(cfr)
 		root.CFrame = root.CFrame + Vector3.new(0,1000,0)
 		local mag = (root.Position - cfr.Position).Magnitude
 		print(mag)
-
-		local r1 = TweenService:Create(root, TweenInfo.new(10, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {CFrame = CFrame.new(cfr.Position.X, root.Position.Y, cfr.Position.Z)})
+		local r1 = TweenService:Create(root, TweenInfo.new(8, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {CFrame = CFrame.new(cfr.Position.X, root.Position.Y, cfr.Position.Z)})
 		r1:Play()
 		r1.Completed:Connect(function()
-			TweenService:Create(root, TweenInfo.new(0.2), {CFrame = cfr + Vector3.new(0, 15, 0)}):Play()
-			task.wait(0.2)
-			root.CFrame = root.CFrame + Vector3.new(0, 5, 0)
+			TweenService:Create(root, TweenInfo.new(1), {CFrame = cfr}):Play()
+			task.wait(1)
 		end)
 	end)
 
@@ -45,6 +43,7 @@ local AutoFarm = ui.CreateTab("Auto Farm")
 local Rift = ui.CreateTab("Rift")
 local Bubble = AutoFarm.AddSection("Auto Bubble")
 local Gifts = AutoFarm.AddSection("Gifts")
+local Chests = AutoFarm.AddSection("Chests")
 local Collectables = AutoFarm.AddSection("Collectables")
 local Eggs = Rift.AddSection("Eggs")
 local Other = Rift.AddSection("Other")
@@ -64,7 +63,9 @@ local data = {
 		level = 0,
 		gems = false,
 		other = false,
-	}
+	},
+	auto_gc = false,
+	auto_rc = false,
 }
 
 Bubble.AddToggle({
@@ -114,6 +115,7 @@ Collectables.AddButton({
 local lucks = {"x5", "x10", "x25"}
 local rifts = {
 	["Chest"] = "golden-chest",
+	["Royal"] = "royal-chest",
 	["Gift"] = "gift-rift",
 }
 
@@ -399,6 +401,31 @@ EncOther.AddToggle({
 
 				task.wait(0.015)
 			until found_enchant == true or data.auto_enchant.gems == false
+		end
+	end,
+})
+
+
+Chests.AddToggle({
+	Title = "Auto open golden",
+	Callback = function(val)
+		data.auto_gc  = val
+		
+		while data.auto_gc do
+			task.wait(1)
+			game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer("UnlockRiftChest", "golden-chest")
+		end
+	end,
+})
+
+Chests.AddToggle({
+	Title = "Auto open royal",
+	Callback = function(val)
+		data.auto_rc  = val
+
+		while data.auto_rc do
+			task.wait(1)
+			game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer("UnlockRiftChest", "royal-chest")
 		end
 	end,
 })
