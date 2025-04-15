@@ -1,5 +1,3 @@
--- FIXED 14/04/25
-
 local TweenService = game:GetService("TweenService")
 
 
@@ -34,7 +32,7 @@ return {
 					if button:IsA("GuiButton") and button:FindFirstChildOfClass("UIScale") then
 						local button: GuiButton = button
 						local scale = button:FindFirstChildOfClass("UIScale")
-						local thook = TweenInfo.new(0.025, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut)
+						local thook = TweenInfo.new(0.125, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut)
 						button.MouseEnter:Connect(function()
 							TweenService:Create(scale, thook, {Scale = 1.05}):Play()
 						end)
@@ -54,10 +52,122 @@ return {
 				end,
 			}
 			local ui = {}
-			task.wait(1.5)
+			
+			local load = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+			load.Name = "load"
+			load.ResetOnSpawn = true
+			
+			if game:GetService("RunService"):IsStudio() == false then
+				load.Parent = gethui()
+			end
+			
+			local Frame_1 = Instance.new("Frame", load)
+			Frame_1.AnchorPoint = Vector2.new(0.5, 0.5)
+			Frame_1.BackgroundColor3 = Color3.new(0.10980392247438431, 0.062745101749897, 0.1725490242242813)
+			Frame_1.BackgroundTransparency = 1
+			Frame_1.BorderColor3 = Color3.new(0, 0, 0)
+			Frame_1.BorderSizePixel = 0
+			Frame_1.Position = UDim2.new(0.5,0,0.5,0)
+			Frame_1.Size = UDim2.new(0,0,0,0)
+			
+			TweenService:Create(Frame_1, TweenInfo.new(1.5, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut), {Size = UDim2.new(0,360,0,240)}):Play()
+
+			local LoadingTitle = Instance.new("TextLabel", Frame_1)
+			LoadingTitle.Name = "LoadingTitle"
+			LoadingTitle.BackgroundColor3 = Color3.new(1, 1, 1)
+			LoadingTitle.BackgroundTransparency = 1
+			LoadingTitle.BorderColor3 = Color3.new(0, 0, 0)
+			LoadingTitle.BorderSizePixel = 0
+			LoadingTitle.Position = UDim2.new(0,0,0.01500015240162611,0)
+			LoadingTitle.Size = UDim2.new(1,0,0.26333338022232056,0)
+			LoadingTitle.Font = Enum.Font.FredokaOne
+			LoadingTitle.Text = "Loading"
+			LoadingTitle.TextColor3 = Color3.new(1, 1, 1)
+			LoadingTitle.TextScaled = true
+			LoadingTitle.TextSize = 14
+			LoadingTitle.TextWrapped = true
+
+			local UIPadding = Instance.new("UIPadding", LoadingTitle)
+			UIPadding.PaddingBottom = UDim.new(0.019999999552965164, 0)
+			UIPadding.PaddingLeft = UDim.new(0.05000000074505806, 0)
+			UIPadding.PaddingRight = UDim.new(0.05000000074505806, 0)
+			UIPadding.PaddingTop = UDim.new(0.019999999552965164, 0)
+
+			local shadow = Instance.new("ImageLabel", Frame_1)
+			shadow.Name = "shadow"
+			shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+			shadow.BackgroundColor3 = Color3.new(1, 1, 1)
+			shadow.BackgroundTransparency = 1
+			shadow.BorderColor3 = Color3.new(0, 0, 0)
+			shadow.BorderSizePixel = 0
+			shadow.Position = UDim2.new(0.5,0,0.5,0)
+			shadow.Size = UDim2.new(1.0156251192092896,35,1.00124990940094,35)
+			shadow.ZIndex = -1000
+			shadow.Image = "rbxassetid://14001321443"
+			shadow.ImageColor3 = Color3.new(0.32156863808631897, 0.18431372940540314, 0.38823533058166504)
+			shadow.ImageTransparency = 0.6000000238418579
+			shadow.ScaleType = Enum.ScaleType.Slice
+			shadow.SliceCenter = Rect.new(50,50,150,150)
+
+			local LoadingDesc = Instance.new("TextLabel", Frame_1)
+			LoadingDesc.Name = "LoadingDesc"
+			LoadingDesc.BackgroundColor3 = Color3.new(1, 1, 1)
+			LoadingDesc.BackgroundTransparency = 1
+			LoadingDesc.BorderColor3 = Color3.new(0, 0, 0)
+			LoadingDesc.BorderSizePixel = 0
+			LoadingDesc.Position = UDim2.new(0,0,0.27750009298324585,0)
+			LoadingDesc.Size = UDim2.new(1,0,0.1016666442155838,0)
+			LoadingDesc.Font = Enum.Font.FredokaOne
+			LoadingDesc.Text = "Please wait!"
+			LoadingDesc.TextColor3 = Color3.new(1, 1, 1)
+			LoadingDesc.TextScaled = true
+			LoadingDesc.TextSize = 14
+			LoadingDesc.TextTransparency = 0.5
+			LoadingDesc.TextWrapped = true
+
+			local UIPadding_0 = Instance.new("UIPadding", LoadingDesc)
+			UIPadding_0.PaddingBottom = UDim.new(0.05000000074505806, 0)
+			UIPadding_0.PaddingLeft = UDim.new(0.05000000074505806, 0)
+			UIPadding_0.PaddingRight = UDim.new(0.05000000074505806, 0)
+			UIPadding_0.PaddingTop = UDim.new(0.05000000074505806, 0)
+
+			local MainFrame = Instance.new("Frame", Frame_1)
+			MainFrame.Name = "MainFrame"
+			MainFrame.BackgroundColor3 = Color3.new(0.10980392247438431, 0.062745101749897, 0.1725490242242813)
+			MainFrame.BackgroundTransparency = 0.6000000238418579
+			MainFrame.BorderColor3 = Color3.new(0, 0, 0)
+			MainFrame.BorderSizePixel = 0
+			MainFrame.Size = UDim2.new(1,0,1,0)
+			MainFrame.ZIndex = -999
+
+			local UICorner = Instance.new("UICorner", MainFrame)
+			UICorner.CornerRadius = UDim.new(0.02500000037252903, 0)
+
+			local LoadingImage = Instance.new("ImageLabel", Frame_1)
+			LoadingImage.Name = "LoadingImage"
+			LoadingImage.AnchorPoint = Vector2.new(0.5, 0.800000011920929)
+			LoadingImage.BackgroundColor3 = Color3.new(1, 1, 1)
+			LoadingImage.BackgroundTransparency = 1
+			LoadingImage.BorderColor3 = Color3.new(0, 0, 0)
+			LoadingImage.BorderSizePixel = 0
+			LoadingImage.Position = UDim2.new(0.5,0,0.800000011920929,0)
+			LoadingImage.Rotation = 7
+			LoadingImage.Size = UDim2.new(0.5,0,0.5,0)
+			LoadingImage.Image = "rbxassetid://10723433935"
+			LoadingImage.ScaleType = Enum.ScaleType.Crop
+
+			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint", LoadingImage)
+			
+			local e = TweenService:Create(LoadingImage, TweenInfo.new(1.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 5, false), {Rotation = 361})
+			e:Play()
+	
+			
+			
+			task.wait(2.5)
 			local test2 = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
 			test2.Name = "test2"
 			test2.ResetOnSpawn = false
+			
 			
 			if game:GetService("RunService"):IsStudio() == false then
 				test2.Parent = gethui()
@@ -71,6 +181,13 @@ return {
 			Frame.BorderSizePixel = 0
 			Frame.Position = UDim2.new(0.5,0,0.5,0)
 			Frame.Size = UDim2.new(0,544,0,400)
+			Frame.Visible = false
+			
+			e.Completed:Connect(function()
+				Frame.Visible = true
+				load:Destroy()
+			end)
+
 			
 			local detector = Instance.new("UIDragDetector", Frame)
 
@@ -411,11 +528,8 @@ return {
 							if opened then
 								TweenService:Create(SectionFrame, TweenInfo.new(0.45, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {Size = UDim2.new(1.117,0,6,0)}):Play()
 							elseif not opened then
-								local e = TweenService:Create(SectionFrame, TweenInfo.new(0.45, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {Size = UDim2.new(1.117,0,0.95,0)})
-								e:Play()
-								e.Completed:Once(function()
-									SectionFrame.Visible = false
-								end)
+								local e = TweenService:Create(SectionFrame, TweenInfo.new(0.45, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {Size = UDim2.new(1.117,0,0.95,0)}):Play()
+								
 							end
 
 							TweenService:Create(arror_down, TweenInfo.new(0.125, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {Rotation = arror_down.Rotation + 180}):Play()
@@ -445,6 +559,8 @@ return {
 								ExampleButton.TextWrapped = true
 								ExampleButton.TextXAlignment = Enum.TextXAlignment.Left
 								ExampleButton.LayoutOrder = lo2
+								
+								local scale = Instance.new("UIScale", ExampleButton)
 
 								local UIPadding_4 = Instance.new("UIPadding", ExampleButton)
 								UIPadding_4.PaddingBottom = UDim.new(0.05000000074505806, 0)
@@ -476,7 +592,7 @@ return {
 								ImageLabel.BorderSizePixel = 0
 								ImageLabel.Position = UDim2.new(1,0,0.5,0)
 								ImageLabel.Size = UDim2.new(0.7599999904632568,0,0.7599999904632568,0)
-								ImageLabel.ZIndex = 71
+								ImageLabel.ZIndex = 70
 								ImageLabel.Image = "rbxassetid://10734929723"
 								ImageLabel.ScaleType = Enum.ScaleType.Tile
 
@@ -508,7 +624,7 @@ return {
 								ExampleToggle.BorderSizePixel = 0
 								ExampleToggle.LayoutOrder = 1
 								ExampleToggle.Size = UDim2.new(0.8500000238418579,0,0.16699999570846558,0)
-								ExampleToggle.ZIndex = 71
+								ExampleToggle.ZIndex = 69
 								ExampleToggle.LayoutOrder = lo2
 
 								local ToggleButton = Instance.new("TextButton", ExampleToggle)
@@ -519,7 +635,7 @@ return {
 								ToggleButton.BorderSizePixel = 0
 								ToggleButton.Position = UDim2.new(1,0,0.5,0)
 								ToggleButton.Size = UDim2.new(0.800000011920929,0,0.800000011920929,0)
-								ToggleButton.ZIndex = 71
+								ToggleButton.ZIndex = 69
 								ToggleButton.Font = Enum.Font.SourceSans
 								ToggleButton.Text = ""
 								ToggleButton.TextColor3 = Color3.new(0, 0, 0)
@@ -539,7 +655,7 @@ return {
 								check.BorderSizePixel = 0
 								check.Size = UDim2.new(1,0,1,0)
 								check.Visible = false
-								check.ZIndex = 72
+								check.ZIndex = 70
 								check.Image = "rbxassetid://10709790644"
 
 								local UICorner_4 = Instance.new("UICorner", ToggleButton)
@@ -551,7 +667,7 @@ return {
 								TextLabel_0.BorderColor3 = Color3.new(0, 0, 0)
 								TextLabel_0.BorderSizePixel = 0
 								TextLabel_0.Size = UDim2.new(0.800000011920929,0,1,0)
-								TextLabel_0.ZIndex = 71
+								TextLabel_0.ZIndex = 69
 								TextLabel_0.Font = Enum.Font.FredokaOne
 								TextLabel_0.Text = Title
 								TextLabel_0.TextColor3 = Color3.new(1, 1, 1)
@@ -566,10 +682,9 @@ return {
 									check.Visible = Default
 
 									if Default then
-										ToggleButton.BackgroundColor3 = Color3.new(0.623529, 0.45098, 0.866667)
+										TweenService:Create(ToggleButton, TweenInfo.new(0.25, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.new(0.623529, 0.45098, 0.866667)}):Play()
 									elseif not Default then
-										ToggleButton.BackgroundColor3 = Color3.new(0.3019607961177826, 0.10588236153125763, 0.4274510145187378)
-
+										TweenService:Create(ToggleButton, TweenInfo.new(0.25, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.new(0.3019607961177826, 0.10588236153125763, 0.4274510145187378)}):Play()
 									end
 
 									Callback(Default)
@@ -680,6 +795,9 @@ return {
 								Save.TextScaled = true
 								Save.TextSize = 14
 								Save.TextWrapped = true
+								
+								local scale = Instance.new("UIScale", Save)
+								util.ButtonFx(Save)
 
 								local UIPadding_6 = Instance.new("UIPadding", Save)
 								UIPadding_6.PaddingBottom = UDim.new(0.05000000074505806, 0)
@@ -791,6 +909,9 @@ return {
 				return tasks
 			end
 			Frame.Size = UDim2.fromOffset(0,0)
+			repeat
+				task.wait()
+			until Frame.Visible == true
 			task.wait(0.5)
 
 			local s = TweenService:Create(Frame, TweenInfo.new(0.625, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {Size = data.Size})
