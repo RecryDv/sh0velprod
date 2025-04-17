@@ -33,7 +33,7 @@ end
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/RecryDv/sh0velprod/refs/heads/main/UIlibrary.luau"))()
 local ui = lib.CreateWindow(1337, {
-	Title = "Bubble gum simulator infinity v0.5",
+	Title = "Bubble gum simulator infinity v0.525",
 	Author = "by sh0vel",
 	Size = UDim2.fromOffset(540, 365)
 
@@ -58,6 +58,7 @@ local data = {
 	auto_sell = false,
 	auto_collect = false,
 	auto_gifts = false,
+	auto_open_gifts = false,
 	auto_enchant = {
 		enchant = "",
 		level = 0,
@@ -190,6 +191,49 @@ Gifts.AddToggle({
 				
 			end
 		end)
+	end,
+})
+
+Gifts.AddToggle({
+	Title = "Auto open",
+	Callback = function(val)
+		data.auto_open_gifts = val
+		
+		while data.auto_open_gifts do
+			local args = {
+				[1] = "UseGift",
+				[2] = "Mystery Box",
+				[3] = 5
+			}
+
+			game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer(unpack(args))
+			
+			local args = {
+				[1] = "UseGift",
+				[2] = "Mystery Box",
+				[3] = 1
+			}
+
+			game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer(unpack(args))
+
+
+			
+			
+			for _, gift in pairs(workspace.Rendered.Gifts:GetChildren()) do
+				
+				local args = {
+					[1] = "ClaimGift",
+					[2] = gift.Name
+				}
+
+				game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer(unpack(args))
+				task.delay(0.5, function()
+					gift:Destroy()
+				end)
+			end
+			
+			task.wait(0.05)
+		end
 	end,
 })
 
@@ -424,7 +468,7 @@ Chests.AddToggle({
 		data.auto_rc  = val
 
 		while data.auto_rc do
-			task.wait(1)
+			task.wait(1) 
 			game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer("UnlockRiftChest", "royal-chest")
 		end
 	end,
